@@ -4,8 +4,6 @@ var tableData = data;
 // YOUR CODE HERE!
 var tbody = d3.select("tbody");
 
-console.log(tbody);
-
 populateData(tableData);
 
 // Select the button
@@ -32,9 +30,8 @@ function runEnter() {
     // Get the value property of the input element
     var value = inputElement.property("value");
   
-    // Use the form input to filter the data by blood type
+    // Use the form input to filter the data by datetime
     var filteredDateTime = tableData.filter(element => element.datetime == value);
-    console.log(filteredDateTime);
     
     tbody.html("");
     
@@ -44,7 +41,6 @@ function runEnter() {
 function runReset() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
-  
     tbody.html("");
     populateData(tableData);    
 }
