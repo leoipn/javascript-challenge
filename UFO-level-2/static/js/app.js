@@ -7,19 +7,29 @@ var tbody = d3.select("tbody");
 populateData(tableData);
 
 // Select the button
-var button = d3.select("#filter-btn");
+var dtButton = d3.select("#filter-btn");
+var cityButton = d3.select("#city-filter-btn");
+var stateButton = d3.select("#state-filter-btn");
 var reset = d3.select(".reset-btn");
 
 // Select the form
 var form = d3.select("#form");
 
 // Create event handlers 
-button.on("click", () => runEnter("#datetime"));
-form.on("submit", () => runEnter("#datetime"));
+dtButton.on("click", () => runEnter("#datetime","datetime"));
+form.on("submit", () => runEnter("#datetime","datetime"));
+
+cityButton.on("click", () => runEnter("#city","city"));
+
+stateButton.on("click", () => runEnter("#state","state"));
+
 reset.on("click", runReset);
 
-
-function runEnter(node) {
+/**
+ * 
+ * @param {node} the raw HTML node 
+ */
+function runEnter(node, filter) {
     // Prevent the page from refreshing
     d3.event.preventDefault();
   
@@ -29,15 +39,18 @@ function runEnter(node) {
     // Get the value property of the input element
     var value = inputElement.property("value");
   
-    // Use the form input to filter the data by blood type
-    var filteredDateTime = tableData.filter(element => element.datetime == value);
-    console.log(filteredDateTime);
+    // Use the form input to filter the data
+    var filteredData = tableData.filter(element => element[filter] == value);
+    console.log(filteredData);
     
     tbody.html("");
     
-    populateData(filteredDateTime);
+    populateData(filteredData);
 }
 
+/**
+ * Resets the filters and populate all the data again.
+ */
 function runReset() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
@@ -46,6 +59,11 @@ function runReset() {
     populateData(tableData);    
 }
 
+/**
+ * General function to populate complete or filtered 
+ * data set related to the UFO Sights
+ * @param {juicyInfo} the data set
+ */
 function populateData(juicyInfo){
     juicyInfo.forEach(element => {
         var row = tbody.append("tr");
