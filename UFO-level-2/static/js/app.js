@@ -4,30 +4,27 @@ var tableData = data;
 // YOUR CODE HERE!
 var tbody = d3.select("tbody");
 
-console.log(tbody);
-
 populateData(tableData);
 
 // Select the button
 var button = d3.select("#filter-btn");
-var reset = d3.select("#reset-btn");
+var reset = d3.select(".reset-btn");
 
 // Select the form
 var form = d3.select("#form");
 
 // Create event handlers 
-button.on("click", runEnter);
+button.on("click", () => runEnter("#datetime"));
+form.on("submit", () => runEnter("#datetime"));
 reset.on("click", runReset);
-form.on("submit",runEnter);
 
 
-function runEnter() {
-
+function runEnter(node) {
     // Prevent the page from refreshing
     d3.event.preventDefault();
   
     // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    var inputElement = d3.select(node);
   
     // Get the value property of the input element
     var value = inputElement.property("value");
