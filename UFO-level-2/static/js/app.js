@@ -10,20 +10,30 @@ populateData(tableData);
 var dtButton = d3.select("#filter-btn");
 var cityButton = d3.select("#city-filter-btn");
 var stateButton = d3.select("#state-filter-btn");
-var reset = d3.select(".reset-btn");
+
+// Select the Reset Button
+var reset = d3.select("#reset-btn");
+var cityReset = d3.select("#city-reset-btn");
+var stateReset = d3.select("#state-reset-btn");
 
 // Select the form
 var form = d3.select("#form");
+var cityForm = d3.select("#city-form");
+var stateForm = d3.select("#state-form");
+
 
 // Create event handlers 
 dtButton.on("click", () => runEnter("#datetime","datetime"));
 form.on("submit", () => runEnter("#datetime","datetime"));
+reset.on("click", runReset);
 
 cityButton.on("click", () => runEnter("#city","city"));
+cityForm.on("submit", () => runEnter("#city","city"));
+cityReset.on("click", runReset);
 
 stateButton.on("click", () => runEnter("#state","state"));
-
-reset.on("click", runReset);
+stateForm.on("submit", () => runEnter("#state","state"));
+stateReset.on("click", runReset);
 
 /**
  * 
